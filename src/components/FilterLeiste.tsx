@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, Clock } from "lucide-react";
 
-interface FilterBarProps {
+interface FilterLeisteProps {
   totalCount: number;
   pendingCount: number;
   selectedStatus: ApplicationStatus | "Alle";
@@ -26,13 +26,13 @@ const statusOptions: (ApplicationStatus | "Alle")[] = [
   "Angenommen",
 ];
 
-export const FilterBar = ({
+export const FilterLeiste = ({
   totalCount,
   pendingCount,
   selectedStatus,
   onStatusChange,
   onAddNew,
-}: FilterBarProps) => {
+}: FilterLeisteProps) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4">

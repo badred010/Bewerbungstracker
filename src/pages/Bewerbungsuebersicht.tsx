@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Application, ApplicationStatus } from "@/types/application";
-import { ApplicationCard } from "@/components/ApplicationCard";
-import { ApplicationForm } from "@/components/ApplicationForm";
-import { FilterBar } from "@/components/FilterBar";
+import { BewerbungsCard } from "@/components/BewerbungsCard";
+import { BewerbungsForm } from "@/components/BewerbungsForm";
+import { FilterLeiste } from "@/components/FilterLeiste";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -83,7 +83,7 @@ const Index = () => {
           </p>
         </div>
 
-        <FilterBar
+        <FilterLeiste
           totalCount={applications.length}
           pendingCount={pendingCount}
           selectedStatus={statusFilter}
@@ -102,7 +102,7 @@ const Index = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
             {filteredApplications.map((application) => (
-              <ApplicationCard
+              <BewerbungsCard
                 key={application.id}
                 application={application}
                 onEdit={handleEdit}
@@ -112,7 +112,7 @@ const Index = () => {
           </div>
         )}
 
-        <ApplicationForm
+        <BewerbungsForm
           open={isFormOpen}
           onClose={handleFormClose}
           onSave={handleSave}

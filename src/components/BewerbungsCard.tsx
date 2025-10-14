@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Pencil, Trash2, MapPin, Calendar, Briefcase } from "lucide-react";
 
-interface ApplicationCardProps {
+interface BewerbungsCardProps {
   application: Application;
   onEdit: (application: Application) => void;
   onDelete: (id: string) => void;
 }
 
-export const ApplicationCard = ({ application, onEdit, onDelete }: ApplicationCardProps) => {
+export const BewerbungsCard = ({ application, onEdit, onDelete }: BewerbungsCardProps) => {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardHeader className="pb-3">

@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-interface ApplicationFormProps {
+interface BewerbungsFormProps {
   open: boolean;
   onClose: () => void;
   onSave: (application: Application) => void;
@@ -33,12 +33,12 @@ const statusOptions: ApplicationStatus[] = [
   "Angenommen",
 ];
 
-export const ApplicationForm = ({
+export const BewerbungsForm = ({
   open,
   onClose,
   onSave,
   editingApplication,
-}: ApplicationFormProps) => {
+}: BewerbungsFormProps) => {
   const [formData, setFormData] = useState<Omit<Application, "id">>({
     companyName: "",
     location: "",
