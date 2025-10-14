@@ -92,7 +92,7 @@ const Index = () => {
         />
 
         {filteredApplications.length === 0 ? (
-          <div className="text-center py-16">
+          <div className="text-center py-14">
             <p className="text-muted-foreground text-lg">
               {statusFilter === "Alle"
                 ? "Noch keine Bewerbungen vorhanden. Füge deine erste Bewerbung hinzu!"
