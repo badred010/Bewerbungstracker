@@ -5,6 +5,11 @@ Ein kleines, persönliches Tool, das ich entwickelt habe, um meine Bewerbungen f
 ## 🧭 Idee
 Das Tool erlaubt mir, Bewerbungen hinzuzufügen, den Status zu verfolgen und schnell zu sehen, wo ich nachfassen muss. Es ist bewusst minimal gehalten — genau so, wie ich es Recruitern zeigen möchte.
 
+## Screenshots
+<img src="public/Annotation 2025-10-14 141155.png">
+<img src="public/Annotation 2025-10-14 141224.png">
+
+
 ## 🛠 Tech Stack
 - React (Vite)
 - TypeScript
