@@ -4,12 +4,15 @@ import { BewerbungsCard } from "@/components/BewerbungsCard";
 import { BewerbungsForm } from "@/components/BewerbungsForm";
 import { FilterLeiste } from "@/components/FilterLeiste";
 import { toast } from "sonner";
+import { SearchBar } from "@/components/SearchBar";
 
 const Index = () => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingApplication, setEditingApplication] = useState<Application | null>(null);
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | "Alle">("Alle");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [cityFilter, setCityFilter] = useState("");
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -62,14 +65,29 @@ const Index = () => {
     setIsFormOpen(true);
   };
 
-  const filteredApplications =
-    statusFilter === "Alle"
-      ? applications
-      : applications.filter((app) => app.status === statusFilter);
+  const availableCities = Array.from(
+    new Set(applications.map((app) => app.location).filter((city) => city))
+  ).sort();
+
+  const filteredApplications = applications.filter((app) => {
+    const statusMatch = statusFilter === "Alle" || app.status === statusFilter;
+    const searchMatch = searchTerm === "" || 
+      app.companyName.toLowerCase().split(/\s+/).some(word => word.startsWith(searchTerm.toLowerCase()));
+    const cityMatch = cityFilter === "" || app.location === cityFilter;
+    return statusMatch && searchMatch && cityMatch;
+  });
 
   const pendingCount = applications.filter(
     (app) => app.status === "Warten" || app.status === "Vorstellungsgespräch"
   ).length;
+
+    const rejectedCount = applications.filter(
+    (app) => app.status === "Abgelehnt"
+  ).length;
+
+  function handleSearch(term: string): void {
+    setSearchTerm(term);
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -82,20 +100,25 @@ const Index = () => {
             Verwalte deine Ausbildungsbewerbungen an einem Ort
           </p>
         </div>
-
-        <FilterLeiste
+           
+      <FilterLeiste
           totalCount={applications.length}
           pendingCount={pendingCount}
+          rejectedCount={rejectedCount}
           selectedStatus={statusFilter}
           onStatusChange={setStatusFilter}
           onAddNew={handleAddNew}
         />
+        <br />
+      <SearchBar onSearch={(term) => handleSearch(term)} />
 
         {filteredApplications.length === 0 ? (
           <div className="text-center py-14">
             <p className="text-muted-foreground text-lg">
-              {statusFilter === "Alle"
+              {applications.length === 0
                 ? "Noch keine Bewerbungen vorhanden. Füge deine erste Bewerbung hinzu!"
+                : searchTerm
+                ? `Keine Bewerbungen gefunden für "${searchTerm}"`
                 : `Keine Bewerbungen mit Status "${statusFilter}"`}
             </p>
           </div>
@@ -111,7 +134,7 @@ const Index = () => {
             ))}
           </div>
         )}
-
+        
         <BewerbungsForm
           open={isFormOpen}
           onClose={handleFormClose}

@@ -7,11 +7,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Plus, FileText, Clock } from "lucide-react";
+import { Plus, FileText, Clock, X } from "lucide-react";
 
 interface FilterLeisteProps {
   totalCount: number;
   pendingCount: number;
+  rejectedCount: number;
   selectedStatus: ApplicationStatus | "Alle";
   onStatusChange: (status: ApplicationStatus | "Alle") => void;
   onAddNew: () => void;
@@ -29,6 +30,7 @@ const statusOptions: (ApplicationStatus | "Alle")[] = [
 export const FilterLeiste = ({
   totalCount,
   pendingCount,
+  rejectedCount,
   selectedStatus,
   onStatusChange,
   onAddNew,
@@ -48,6 +50,13 @@ export const FilterLeiste = ({
           <div>
             <p className="text-xs text-muted-foreground">Offen</p>
             <p className="text-xl font-semibold text-foreground">{pendingCount}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 bg-card px-4 py-3 rounded-lg border">
+          <X  className="w-5 h-5 text-status-rejected" />
+          <div>
+            <p className="text-xs text-muted-foreground">Absage</p>
+            <p className="text-xl font-semibold text-foreground">{rejectedCount}</p>
           </div>
         </div>
       </div>
